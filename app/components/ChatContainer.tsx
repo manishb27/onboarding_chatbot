@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import MessageBubble from './MessageBubble';
 import ChatInput from './ChatInput';
 import { Message } from '../types/chat';
-import { MessageSquare, Shield, Sparkles, Bot } from 'lucide-react';
+import { MessageSquare, Shield, Sparkles } from 'lucide-react';
 
 interface ChatContainerProps {
   messages: Message[];
@@ -37,79 +37,163 @@ export default function ChatContainer({
   }, [messages]);
 
   return (
-    <div className="w-full max-w-3xl mx-auto">
+    <div style={{ width: '100%', maxWidth: '1200px', margin: '0 auto' }}>
       {/* Main Chat Card */}
       <motion.div
         initial={{ opacity: 0, y: 20, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="flex flex-col bg-white rounded-2xl sm:rounded-3xl shadow-xl overflow-hidden h-[500px] sm:h-[600px] lg:h-[700px]"
         style={{
+          display: 'flex',
+          flexDirection: 'column',
           background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
+          borderRadius: '24px',
           boxShadow: '0 20px 40px -8px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.04)',
+          overflow: 'hidden',
+          height: 'clamp(750px, 88vh, 1000px)',
+          position: 'relative'
         }}
       >
         {/* Paper texture overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent pointer-events-none rounded-2xl sm:rounded-3xl" />
-        
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'linear-gradient(to bottom right, rgba(255,255,255,0.4), transparent)',
+          pointerEvents: 'none',
+          borderRadius: '24px'
+        }} />
+
         {/* Header */}
-        <motion.div 
-          className="relative bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 text-white p-4 sm:p-6"
+        <motion.div
+          style={{
+            position: 'relative',
+            background: 'linear-gradient(to right, #6366f1, #9333ea, #6366f1)',
+            color: 'white',
+            padding: '28px 40px'
+          }}
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          {/* Header paper texture */}
-          <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent" />
-          
-          <div className="relative z-10 flex items-center justify-between">
-            <div className="flex-1">
-              <div className="flex items-center gap-2 sm:gap-3 mb-1 sm:mb-2">
-                <div className="p-1.5 sm:p-2 bg-white/20 rounded-xl backdrop-blur-sm">
-                  <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5" />
+          {/* Header gradient overlay */}
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'linear-gradient(to bottom right, rgba(255,255,255,0.2), transparent)'
+          }} />
+
+          <div style={{
+            position: 'relative',
+            zIndex: 10,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between'
+          }}>
+            <div style={{ flex: 1 }}>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                marginBottom: '8px'
+              }}>
+                <div style={{
+                  padding: '8px',
+                  background: 'rgba(255, 255, 255, 0.2)',
+                  borderRadius: '12px',
+                  backdropFilter: 'blur(8px)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  <MessageSquare style={{ width: '20px', height: '20px' }} />
                 </div>
-                <h1 className="text-lg sm:text-xl lg:text-2xl font-bold tracking-tight">
+                <h1 style={{
+                  fontSize: 'clamp(1.125rem, 2vw, 1.5rem)',
+                  fontWeight: 700,
+                  letterSpacing: '-0.01em',
+                  margin: 0
+                }}>
                   Welcome to Our Platform
                 </h1>
               </div>
-              <p className="text-indigo-100 text-xs sm:text-sm font-medium opacity-90">
+              <p style={{
+                color: '#e0e7ff',
+                fontSize: '14px',
+                fontWeight: 500,
+                opacity: 0.95,
+                margin: 0
+              }}>
                 Let's get you set up in just a few steps
               </p>
             </div>
-            
-            <div className="hidden sm:flex items-center gap-2 text-indigo-200">
-              <Shield className="w-4 h-4" />
-              <span className="text-xs font-medium">Secure</span>
+
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              color: '#e0e7ff'
+            }}>
+              <Shield style={{ width: '16px', height: '16px' }} />
+              <span style={{ fontSize: '12px', fontWeight: 500 }}>Secure</span>
             </div>
           </div>
         </motion.div>
 
         {/* Messages Area */}
-        <div className="flex-1 overflow-y-auto px-3 sm:px-4 lg:px-6 py-4 sm:py-6 bg-gradient-to-b from-slate-50/50 to-white/80 relative">
-          {/* Subtle paper pattern */}
-          <div 
-            className="absolute inset-0 opacity-[0.02]"
-            style={{
-              backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(0,0,0,0.15) 1px, transparent 0)',
-              backgroundSize: '20px 20px'
-            }}
-          />
-          
-          <div className="relative z-10 max-w-2xl mx-auto">
+        <div style={{
+          flex: 1,
+          overflowY: 'auto',
+          padding: '32px 40px',
+          background: 'linear-gradient(to bottom, rgba(248, 250, 252, 0.5), rgba(255, 255, 255, 0.8))',
+          position: 'relative'
+        }}>
+          {/* Subtle pattern */}
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            opacity: 0.02,
+            backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(0,0,0,0.15) 1px, transparent 0)',
+            backgroundSize: '20px 20px'
+          }} />
+
+          <div style={{
+            position: 'relative',
+            zIndex: 10,
+            maxWidth: '900px',
+            margin: '0 auto'
+          }}>
             {messages.length === 0 && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
-                className="text-center py-12"
+                style={{
+                  textAlign: 'center',
+                  padding: '48px 0'
+                }}
               >
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full mb-4">
-                  <Sparkles className="w-8 h-8 text-indigo-600" />
+                <div style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: '64px',
+                  height: '64px',
+                  background: 'linear-gradient(to bottom right, #e0e7ff, #ddd6fe)',
+                  borderRadius: '50%',
+                  marginBottom: '16px'
+                }}>
+                  <Sparkles style={{ width: '32px', height: '32px', color: '#6366f1' }} />
                 </div>
-                <p className="text-slate-500 text-lg">Starting conversation...</p>
+                <p style={{
+                  color: '#64748b',
+                  fontSize: '18px',
+                  margin: 0
+                }}>
+                  Starting conversation...
+                </p>
               </motion.div>
             )}
-            
+
             {messages.map((message) => (
               <MessageBubble
                 key={message.id}
@@ -117,30 +201,68 @@ export default function ChatContainer({
                 onButtonClick={onButtonClick}
               />
             ))}
-            
+
             {isLoading && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="flex items-end gap-2 mb-6"
+                style={{
+                  display: 'flex',
+                  alignItems: 'flex-end',
+                  gap: '12px',
+                  marginBottom: '24px'
+                }}
               >
-                <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg ring-2 ring-white">
-                  <Bot className="w-5 h-5 text-white" />
+                <div style={{
+                  flexShrink: 0,
+                  width: '40px',
+                  height: '40px',
+                  background: 'linear-gradient(to bottom right, #6366f1, #9333ea)',
+                  borderRadius: '50%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  boxShadow: '0 8px 16px -4px rgba(99, 102, 241, 0.4)',
+                  border: '2px solid white'
+                }}>
+                  <MessageSquare style={{ width: '20px', height: '20px', color: 'white' }} />
                 </div>
-                <div className="bg-white rounded-2xl rounded-bl-md px-4 py-3 shadow-lg border border-slate-200">
-                  <div className="flex gap-1">
-                    <motion.div 
-                      className="w-2 h-2 bg-indigo-400 rounded-full"
+                <div style={{
+                  background: 'white',
+                  borderRadius: '18px',
+                  borderBottomLeftRadius: '4px',
+                  padding: '14px 18px',
+                  boxShadow: '0 8px 16px -4px rgba(0, 0, 0, 0.1)',
+                  border: '1px solid #e2e8f0'
+                }}>
+                  <div style={{ display: 'flex', gap: '4px' }}>
+                    <motion.div
+                      style={{
+                        width: '8px',
+                        height: '8px',
+                        background: '#a5b4fc',
+                        borderRadius: '50%'
+                      }}
                       animate={{ scale: [1, 1.2, 1] }}
                       transition={{ duration: 1, repeat: Infinity, delay: 0 }}
                     />
-                    <motion.div 
-                      className="w-2 h-2 bg-indigo-400 rounded-full"
+                    <motion.div
+                      style={{
+                        width: '8px',
+                        height: '8px',
+                        background: '#a5b4fc',
+                        borderRadius: '50%'
+                      }}
                       animate={{ scale: [1, 1.2, 1] }}
                       transition={{ duration: 1, repeat: Infinity, delay: 0.2 }}
                     />
-                    <motion.div 
-                      className="w-2 h-2 bg-indigo-400 rounded-full"
+                    <motion.div
+                      style={{
+                        width: '8px',
+                        height: '8px',
+                        background: '#a5b4fc',
+                        borderRadius: '50%'
+                      }}
                       animate={{ scale: [1, 1.2, 1] }}
                       transition={{ duration: 1, repeat: Infinity, delay: 0.4 }}
                     />
@@ -148,7 +270,7 @@ export default function ChatContainer({
                 </div>
               </motion.div>
             )}
-            
+
             <div ref={messagesEndRef} />
           </div>
         </div>

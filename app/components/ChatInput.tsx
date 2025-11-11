@@ -11,11 +11,11 @@ interface ChatInputProps {
   disabled?: boolean;
 }
 
-export default function ChatInput({ 
-  onSendMessage, 
-  placeholder = "Type your message...", 
+export default function ChatInput({
+  onSendMessage,
+  placeholder = "Type your message...",
   isPassword = false,
-  disabled = false 
+  disabled = false
 }: ChatInputProps) {
   const [input, setInput] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -33,29 +33,48 @@ export default function ChatInput({
   const inputType = isPassword && !showPassword ? 'password' : 'text';
 
   return (
-    <div className="p-3 sm:p-4 lg:p-6 bg-gradient-to-t from-slate-50 to-white border-t border-slate-200/60">
+    <div style={{
+      padding: '24px 40px 28px',
+      background: 'linear-gradient(to top, #f8fafc, white)',
+      borderTop: '1px solid rgba(226, 232, 240, 0.6)'
+    }}>
       <motion.form
         onSubmit={handleSubmit}
-        className="flex items-center gap-2 sm:gap-3 max-w-2xl mx-auto"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '12px',
+          maxWidth: '900px',
+          margin: '0 auto'
+        }}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: "easeOut" }}
       >
-        <div className="flex-1 relative">
+        <div style={{ flex: 1, position: 'relative' }}>
           <motion.div
-            className={`relative overflow-hidden rounded-xl sm:rounded-2xl transition-all duration-300 ${
-              isFocused 
-                ? 'ring-2 ring-indigo-400 ring-opacity-50 shadow-lg' 
-                : 'shadow-md hover:shadow-lg'
-            }`}
-            whileHover={{ scale: 1.005 }}
             style={{
+              position: 'relative',
+              overflow: 'hidden',
+              borderRadius: '16px',
               background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
+              transition: 'all 0.3s ease',
+              ...(isFocused ? {
+                boxShadow: '0 0 0 2px rgba(99, 102, 241, 0.2), 0 8px 20px -4px rgba(0, 0, 0, 0.1)'
+              } : {
+                boxShadow: '0 4px 12px -2px rgba(0, 0, 0, 0.1)'
+              })
             }}
+            whileHover={{ scale: 1.005 }}
           >
-            {/* Paper texture overlay */}
-            <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-transparent pointer-events-none" />
-            
+            {/* Texture overlay */}
+            <div style={{
+              position: 'absolute',
+              inset: 0,
+              background: 'linear-gradient(to bottom right, rgba(255, 255, 255, 0.6), transparent)',
+              pointerEvents: 'none'
+            }} />
+
             <input
               type={inputType}
               value={input}
@@ -64,63 +83,126 @@ export default function ChatInput({
               onBlur={() => setIsFocused(false)}
               placeholder={placeholder}
               disabled={disabled}
-              className={`relative z-10 w-full px-3 py-3 sm:px-4 sm:py-4 bg-transparent border-0 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed text-slate-700 placeholder-slate-400 text-sm sm:text-base ${
-                isPassword && !showPassword ? 'pr-12 sm:pr-14' : 'pr-3 sm:pr-4'
-              }`}
+              style={{
+                position: 'relative',
+                zIndex: 10,
+                width: '100%',
+                padding: '14px 18px',
+                background: 'transparent',
+                border: '1px solid transparent',
+                outline: 'none',
+                color: '#334155',
+                fontSize: '15px',
+                ...(disabled && {
+                  opacity: 0.5,
+                  cursor: 'not-allowed'
+                }),
+                ...(isPassword && !showPassword && {
+                  paddingRight: '52px'
+                })
+              }}
             />
-            
+
             {isPassword && (
               <motion.button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-slate-500 hover:text-slate-700 transition-colors z-20"
                 disabled={disabled}
+                style={{
+                  position: 'absolute',
+                  right: '16px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  color: '#64748b',
+                  background: 'none',
+                  border: 'none',
+                  cursor: disabled ? 'not-allowed' : 'pointer',
+                  zIndex: 20,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: '4px',
+                  transition: 'color 0.2s ease'
+                }}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
+                onMouseEnter={(e) => {
+                  if (!disabled) {
+                    (e.currentTarget as HTMLButtonElement).style.color = '#334155';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLButtonElement).style.color = '#64748b';
+                }}
               >
                 {showPassword ? (
-                  <EyeOff className="w-5 h-5" />
+                  <EyeOff style={{ width: '20px', height: '20px' }} />
                 ) : (
-                  <Eye className="w-5 h-5" />
+                  <Eye style={{ width: '20px', height: '20px' }} />
                 )}
               </motion.button>
             )}
           </motion.div>
         </div>
-        
+
         <motion.button
           type="submit"
           disabled={!input.trim() || disabled}
-          whileHover={{ 
-            scale: input.trim() ? 1.03 : 1,
-            boxShadow: input.trim() ? "0 8px 20px -5px rgba(99, 102, 241, 0.4)" : undefined
-          }}
+          whileHover={input.trim() ? {
+            scale: 1.03,
+            boxShadow: "0 8px 20px -5px rgba(99, 102, 241, 0.4)"
+          } : {}}
           whileTap={{ scale: 0.97 }}
-          className={`relative flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl transition-all duration-300 shadow-lg ${
-            input.trim() && !disabled
-              ? 'bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white shadow-indigo-500/25'
-              : 'bg-gradient-to-r from-slate-300 to-slate-400 text-slate-500 cursor-not-allowed'
-          }`}
           style={{
-            filter: input.trim() ? 'drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))' : 'none'
+            position: 'relative',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '48px',
+            height: '48px',
+            borderRadius: '16px',
+            border: 'none',
+            cursor: (input.trim() && !disabled) ? 'pointer' : 'not-allowed',
+            transition: 'all 0.3s ease',
+            boxShadow: input.trim() ? '0 8px 20px -6px rgba(99, 102, 241, 0.3)' : 'none',
+            filter: input.trim() ? 'drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))' : 'none',
+            ...(input.trim() && !disabled ? {
+              background: 'linear-gradient(to right, #6366f1, #9333ea)',
+              color: 'white'
+            } : {
+              background: 'linear-gradient(to right, #cbd5e1, #94a3b8)',
+              color: '#64748b'
+            })
           }}
         >
-          {/* Paper texture */}
-          <div className="absolute inset-0 rounded-xl sm:rounded-2xl bg-gradient-to-br from-white/20 to-transparent" />
-          
-          <div className="relative z-10">
+          {/* Texture */}
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            borderRadius: '16px',
+            background: 'linear-gradient(to bottom right, rgba(255, 255, 255, 0.2), transparent)'
+          }} />
+
+          <div style={{ position: 'relative', zIndex: 10 }}>
             {input.trim() ? (
-              <Send className="w-4 h-4 sm:w-5 sm:h-5" />
+              <Send style={{ width: '20px', height: '20px' }} />
             ) : (
-              <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
+              <Sparkles style={{ width: '20px', height: '20px' }} />
             )}
           </div>
         </motion.button>
       </motion.form>
-      
-      {/* Subtle hint text */}
-      <motion.p 
-        className="text-center text-xs text-slate-400 mt-2 sm:mt-3 max-w-md mx-auto"
+
+      {/* Hint text */}
+      <motion.p
+        style={{
+          textAlign: 'center',
+          fontSize: '12px',
+          color: '#94a3b8',
+          marginTop: '12px',
+          maxWidth: '900px',
+          margin: '12px auto 0'
+        }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}

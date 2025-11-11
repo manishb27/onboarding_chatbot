@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import ChatContainer from './components/ChatContainer';
 import { useChat } from './hooks/useChat';
-import { CheckCircle2, Star, Users, Shield, Sparkles, Award } from 'lucide-react';
+import { CheckCircle2, Star, Users, Shield } from 'lucide-react';
 
 export default function Home() {
   const {
@@ -32,78 +32,182 @@ export default function Home() {
   const showInput = !['welcome', 'business_type', 'company_size', 'use_case', 'confirmation', 'complete'].includes(currentStep);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 relative overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div 
-          className="absolute inset-0 opacity-[0.02]"
-          style={{
-            backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(15, 23, 42, 0.15) 1px, transparent 0)',
-            backgroundSize: '24px 24px'
-          }}
-        />
+    <div style={{
+      minHeight: '100vh',
+      background: 'linear-gradient(to bottom right, #f8fafc, #e0e7ff, #e0e7ff)',
+      position: 'relative',
+      overflow: 'hidden'
+    }}>
+      {/* Background pattern */}
+      <div style={{
+        position: 'absolute',
+        inset: 0,
+        overflow: 'hidden',
+        pointerEvents: 'none'
+      }}>
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          opacity: 0.02,
+          backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(15, 23, 42, 0.15) 1px, transparent 0)',
+          backgroundSize: '24px 24px'
+        }} />
       </div>
 
       {/* Main Container */}
-      <div className="relative z-10 min-h-screen flex flex-col">
+      <div style={{
+        position: 'relative',
+        zIndex: 10,
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column'
+      }}>
         {/* Header Section */}
-        <motion.header 
-          className="text-center py-8 px-4 sm:py-12 sm:px-6"
+        <motion.header
+          style={{
+            textAlign: 'center',
+            padding: '48px 24px',
+            marginBottom: '20px'
+          }}
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <div className="max-w-4xl mx-auto">
+          <div style={{ maxWidth: '1024px', margin: '0 auto' }}>
             <motion.div
-              className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full border border-slate-200/50 shadow-sm mb-6"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '10px 18px',
+                background: 'rgba(255, 255, 255, 0.9)',
+                backdropFilter: 'blur(8px)',
+                borderRadius: '9999px',
+                border: '1px solid rgba(226, 232, 240, 0.6)',
+                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.06)',
+                marginBottom: '28px'
+              }}
               initial={{ scale: 0.8 }}
               animate={{ scale: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <Star className="w-4 h-4 text-indigo-600" />
-              <span className="text-sm font-medium text-slate-700">Trusted by 10,000+ businesses</span>
+              <Star style={{ width: '16px', height: '16px', color: '#6366f1' }} />
+              <span style={{ fontSize: '14px', fontWeight: 500, color: '#475569' }}>
+                Trusted by 10,000+ businesses
+              </span>
             </motion.div>
-            
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-slate-800 mb-4 tracking-tight">
-              <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-800 bg-clip-text text-transparent">
+
+            <h1 style={{
+              fontSize: 'clamp(2rem, 5vw, 3.75rem)',
+              fontWeight: 700,
+              color: '#1e293b',
+              marginBottom: '20px',
+              letterSpacing: '-0.02em',
+              lineHeight: 1.2
+            }}>
+              <span style={{
+                background: 'linear-gradient(to right, #6366f1, #9333ea, #4f46e5)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text'
+              }}>
                 Business Platform
               </span>
               <br />
-              <span className="text-slate-700">Onboarding</span>
+              <span style={{ color: '#334155' }}>Onboarding</span>
             </h1>
-            
-            <p className="text-base sm:text-lg lg:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed mb-6 sm:mb-8">
+
+            <p style={{
+              fontSize: 'clamp(1rem, 2vw, 1.25rem)',
+              color: '#64748b',
+              maxWidth: '672px',
+              margin: '0 auto',
+              lineHeight: 1.7,
+              marginBottom: '32px',
+              padding: '0 16px'
+            }}>
               Get started with our intelligent conversational setup process.
-              <br className="hidden sm:block" />
-              <span className="text-slate-500">Secure, fast, and designed for modern businesses.</span>
+              <br />
+              <span style={{ color: '#94a3b8' }}>
+                Secure, fast, and designed for modern businesses.
+              </span>
             </p>
 
             {/* Feature pills */}
-            <motion.div 
-              className="flex flex-wrap justify-center gap-2 sm:gap-3"
+            <motion.div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+                gap: '12px',
+                padding: '0 16px'
+              }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <div className="flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-white/70 backdrop-blur-sm rounded-full border border-slate-200/50 shadow-sm">
-                <Shield className="w-3 h-3 sm:w-4 sm:h-4 text-green-600" />
-                <span className="text-xs sm:text-sm font-medium text-slate-700">Enterprise Security</span>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '10px 18px',
+                background: 'rgba(255, 255, 255, 0.8)',
+                backdropFilter: 'blur(8px)',
+                borderRadius: '9999px',
+                border: '1px solid rgba(226, 232, 240, 0.6)',
+                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.06)'
+              }}>
+                <Shield style={{ width: '16px', height: '16px', color: '#16a34a' }} />
+                <span style={{ fontSize: '14px', fontWeight: 500, color: '#475569' }}>
+                  Enterprise Security
+                </span>
               </div>
-              <div className="flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-white/70 backdrop-blur-sm rounded-full border border-slate-200/50 shadow-sm">
-                <Users className="w-3 h-3 sm:w-4 sm:h-4 text-blue-600" />
-                <span className="text-xs sm:text-sm font-medium text-slate-700">Multi-Company</span>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '10px 18px',
+                background: 'rgba(255, 255, 255, 0.8)',
+                backdropFilter: 'blur(8px)',
+                borderRadius: '9999px',
+                border: '1px solid rgba(226, 232, 240, 0.6)',
+                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.06)'
+              }}>
+                <Users style={{ width: '16px', height: '16px', color: '#2563eb' }} />
+                <span style={{ fontSize: '14px', fontWeight: 500, color: '#475569' }}>
+                  Multi-Company
+                </span>
               </div>
-              <div className="flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-white/70 backdrop-blur-sm rounded-full border border-slate-200/50 shadow-sm">
-                <CheckCircle2 className="w-3 h-3 sm:w-4 sm:h-4 text-purple-600" />
-                <span className="text-xs sm:text-sm font-medium text-slate-700">2-Minute Setup</span>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '10px 18px',
+                background: 'rgba(255, 255, 255, 0.8)',
+                backdropFilter: 'blur(8px)',
+                borderRadius: '9999px',
+                border: '1px solid rgba(226, 232, 240, 0.6)',
+                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.06)'
+              }}>
+                <CheckCircle2 style={{ width: '16px', height: '16px', color: '#9333ea' }} />
+                <span style={{ fontSize: '14px', fontWeight: 500, color: '#475569' }}>
+                  2-Minute Setup
+                </span>
               </div>
             </motion.div>
           </div>
         </motion.header>
-        
+
         {/* Chat Section */}
-        <main className="flex-1 flex items-center justify-center px-4 sm:px-6 pb-8">
-          <div className="w-full max-w-4xl">
+        <main style={{
+          flex: 1,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '0 20px 40px',
+          marginBottom: '20px'
+        }}>
+          <div style={{ width: '100%', maxWidth: '1200px' }}>
             <ChatContainer
               messages={messages}
               onSendMessage={handleUserMessage}
@@ -115,40 +219,78 @@ export default function Home() {
             />
           </div>
         </main>
-        
+
         {/* Completion State */}
         {userData.isComplete && (
-          <motion.div 
-            className="mt-8 px-4"
+          <motion.div
+            style={{ marginTop: '32px', padding: '0 20px' }}
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
           >
-            <div className="max-w-md mx-auto bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200/60 rounded-2xl p-8 text-center shadow-lg">
+            <div style={{
+              maxWidth: '448px',
+              margin: '0 auto',
+              background: 'linear-gradient(to right, #f0fdf4, #ecfdf5)',
+              border: '1px solid rgba(134, 239, 172, 0.6)',
+              borderRadius: '20px',
+              padding: '40px',
+              textAlign: 'center',
+              boxShadow: '0 20px 40px -12px rgba(0, 0, 0, 0.15)'
+            }}>
               <motion.div
-                className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full mb-4"
-                animate={{ 
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: '72px',
+                  height: '72px',
+                  background: 'linear-gradient(to right, #10b981, #059669)',
+                  borderRadius: '50%',
+                  marginBottom: '20px'
+                }}
+                animate={{
                   rotate: [0, 5, -5, 0],
                   scale: [1, 1.05, 1]
                 }}
-                transition={{ 
+                transition={{
                   duration: 2,
                   repeat: Infinity,
                   ease: "easeInOut"
                 }}
               >
-                <CheckCircle2 className="w-8 h-8 text-white" />
+                <CheckCircle2 style={{ width: '36px', height: '36px', color: 'white' }} />
               </motion.div>
-              
-              <div className="text-green-800 text-xl font-bold mb-2">
-                🎉 Setup Complete!
+
+              <div style={{
+                color: '#166534',
+                fontSize: '22px',
+                fontWeight: 700,
+                marginBottom: '12px'
+              }}>
+                Setup Complete!
               </div>
-              <p className="text-green-700 text-sm leading-relaxed">
+              <p style={{
+                color: '#15803d',
+                fontSize: '15px',
+                lineHeight: 1.7,
+                marginBottom: '24px'
+              }}>
                 Your account has been configured successfully. You can now start using the platform with all your personalized settings.
               </p>
-              
+
               <motion.button
-                className="mt-6 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                style={{
+                  padding: '14px 28px',
+                  background: 'linear-gradient(to right, #16a34a, #059669)',
+                  color: 'white',
+                  borderRadius: '14px',
+                  fontWeight: 600,
+                  fontSize: '15px',
+                  boxShadow: '0 10px 30px -8px rgba(22, 163, 74, 0.4)',
+                  border: 'none',
+                  cursor: 'pointer'
+                }}
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => window.location.reload()}
@@ -160,14 +302,18 @@ export default function Home() {
         )}
 
         {/* Footer */}
-        <motion.div 
-          className="text-center py-8 px-4"
+        <motion.div
+          style={{
+            textAlign: 'center',
+            padding: '32px 20px',
+            marginTop: 'auto'
+          }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.8 }}
         >
-          <p className="text-slate-400 text-sm">
-            Powered by AI • Built with Next.js & Groq • Secured with enterprise-grade encryption
+          <p style={{ color: '#94a3b8', fontSize: '13px' }}>
+            Powered by AI • Built with Next.js • Secured with enterprise-grade encryption
           </p>
         </motion.div>
       </div>
